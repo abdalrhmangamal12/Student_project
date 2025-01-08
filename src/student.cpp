@@ -1,21 +1,24 @@
 #include <iostream>
 #include "../include/student.hpp"
 
-// default constructor 
-// param constructor
 
-Student::Student(std::vector<Student_record> students_list)
+Student::Student( const std::vector<Student_record> students_list)
                                     :students_list_(students_list){};
 
-// add student 
-void Student::add_student(Student_record  student_record){
-    students_list_.push_back(student_record);
 
+void Student::add_student(const Student_record& student_record){
+    if(student_record.Name.size()!=0 && 
+       student_record.Grade>=0.0 ,student_record.Year_level>0){
+    students_list_.push_back(student_record);
+       }
+    else{
+        std::cout<<"please add valid student information"<<std::endl;
+    }   
 }
 
 void Student::remove_student(Student_record  student_record){
-    for(std::vector<Student_record>::iterator it=students_list_.begin();it!=students_list_.end();it++){
-        if(Student::isthesamestudent(*it,student_record)){
+    for(auto it=students_list_.begin();it!=students_list_.end();it++){
+        if(Student::hasSameIdentity(*it,student_record)){
             students_list_.erase(it);
         }
     }
@@ -33,7 +36,7 @@ void Student::modify_student(Student::Student_record student_record){
     }
 }
 
-std::vector<Student::Student_record> Student::get_student(std::string name){
+std::vector<Student::Student_record> Student::get_students(std::string name)const{
      std::vector<Student::Student_record> students;
      for(const auto & student :students_list_){
        if(student.Name==name){
@@ -43,12 +46,12 @@ std::vector<Student::Student_record> Student::get_student(std::string name){
     return students; 
 } 
 
-std::vector<Student::Student_record> Student::get_all(void){
+std::vector<Student::Student_record> Student::get_all(){
      
   return students_list_;
 } 
 
-bool Student::isthesamestudent(Student_record student,Student_record student_record){
+bool Student::hasSameIdentity(Student_record student,Student_record student_record){
     
         if(student.Name==student_record.Name && 
            student.Grade==student_record.Grade && 

@@ -18,24 +18,24 @@ class Student{
       // default constructor
     Student()=default;
     // parameter constructor
-    Student(std::vector<Student_record> students_list );
+    Student(const std::vector<Student_record> students_list );
     // method add student 
-    void add_student(Student_record  student_record);
+    void add_student(const Student_record& student_record);
     // remove student 
     void remove_student(Student_record  student_record);
     // modify student
     void modify_student(Student_record student_record);
     // get student 
-    std::vector<Student_record> get_student(std::string name);
+    std::vector<Student_record> get_students(std::string name)const;
     // get all students 
-    std::vector<Student_record> get_all(void);
+    inline std::vector<Student_record> get_all();
     
     int get_count_success(int year_level);
         
     
     private:
       std::vector<Student_record> students_list_;
-      bool isthesamestudent(Student_record student,Student_record student_record);
+      bool hasSameIdentity(Student_record student,Student_record student_record);
 
 };
 #endif
